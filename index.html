@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdishakuur hassan | UI/UX Designer - Shagaaza</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --background: #0a0a0a;
+            --foreground: #ffffff;
+            --card: #1a1a1a;
+            --card-foreground: #ffffff;
+            --primary: #ff6b00;
+            --primary-foreground: #ffffff;
+            --secondary: #1a1a1a;
+            --secondary-foreground: #ffffff;
+            --muted: #1a1a1a;
+            --muted-foreground: #888888;
+            --border: #2a2a2a;
+            --destructive: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+
+        nav {
+            display: none;
+            gap: 32px;
+        }
+
+        nav a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a.active {
+            color: var(--primary);
+        }
+
+        .btn-hire {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .btn-hire:hover {
+            background-color: #e55a00;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                display: flex;
+            }
+            .menu-toggle {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .menu-toggle {
+                display: block;
+            }
+            .btn-hire-desktop {
+                display: none;
+            }
+            nav {
+                display: none;
+            }
+            nav.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: var(--card);
+                border-bottom: 1px solid var(--border);
+                padding: 16px;
+                gap: 16px;
+            }
+        }
+
+        /* Main Content */
+        main {
+            min-height: 100vh;
+            background: var(--background);
+            padding-top: 80px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        section h2 {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 48px;
+            padding-top: 40px;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: var(--foreground);
+        }
+
+        .hero-content .subtitle {
+            font-size: 18px;
+            color: var(--muted-foreground);
+            margin-bottom: 24px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin: 32px 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted-foreground);
+            margin-top: 8px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            margin: 32px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .btn-primary:hover {
+            background-color: #e55a00;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--foreground);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--card);
+        }
+
+        .hero-image {
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 32px;
+            }
+            .hero-stats {
+                flex-direction: column;
+            }
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 107, 0, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 28px;
+            color: var(--primary);
+        }
+        
+        .service-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--primary);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .service-card h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: var(--foreground);
+        }
+
+        .service-card p {
+            color: var(--muted-foreground);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* About Me Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: var(--muted-foreground);
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+
+        .about-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .about-image {
+            border-radius: 12px;
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            .about-images {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 32px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .skill-item {
+            text-align: center;
+        }
+
+        .skill-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) var(--skill-value), var(--border) 0);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            position: relative;
+            gap: 8px;
+        }
+
+
+        .skill-circle::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--card);
+        }
+
+        .skill-icon {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .skill-icon.skill-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .skill-percent {
+            position: relative;
+            z-index: 1;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .skill-name {
+            color: var(--muted-foreground);
+            font-size: 14px;
+        }
+
+        /* Portfolio Section */
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            border-color: var(--primary);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .portfolio-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--card);
+            cursor: pointer;
+            aspect-ratio: 1;
+        }
+
+        .portfolio-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.2) 30%, transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .portfolio-card:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-title {
+            color: var(--foreground);
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .portfolio-category {
+            color: var(--primary);
+            font-size: 12px;
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: var(--foreground);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--muted);
+            color: var(--foreground);
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            padding: 16px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-submit:hover {
+            background-color: #e55a00;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            padding: 64px 0;
+        }
+
+        footer .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted-foreground);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            font-size: 14px;
+        }
+
+        .footer-contact a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: var(--muted-foreground);
+            font-size: 12px;
+        }
+
+        /* Expense System Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            font-size: 28px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .modal-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .modal-logo img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .modal-header p {
+            color: var(--muted-foreground);
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .expense-section {
+            margin-bottom: 24px;
+        }
+
+        .expense-section h3 {
+            color: var(--foreground);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--secondary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-card-label {
+            color: var(--muted-foreground);
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card-value {
+            color: var(--primary);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .stat-card.negative .stat-card-value {
+            color: var(--destructive);
+        }
+
+        .expense-input {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--muted);
+            color: var(--foreground);
+            margin-bottom: 12px;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .expense-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-set-budget {
+            background: var(--primary);
+            color: var(--primary-foreground);
+            margin-bottom: 24px;
+        }
+
+        .btn-add-expense {
+            background: var(--destructive);
+            color: white;
+        }
+
+        .btn-set-budget:hover {
+            background: #e55a00;
+        }
+
+        .btn-add-expense:hover {
+            background: #dc2626;
+        }
+
+        .expense-list {
+            background: var(--muted);
+            border-radius: 8px;
+            padding: 16px;
+            min-height: 100px;
+        }
+
+        .expense-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .expense-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .expense-name {
+            color: var(--foreground);
+            font-weight: 500;
+        }
+
+        .expense-date {
+            color: var(--muted-foreground);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .expense-amount {
+            color: var(--destructive);
+            font-weight: bold;
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            transition: color 0.3s;
+            font-size: 18px;
+        }
+
+        .btn-delete:hover {
+            color: var(--destructive);
+        }
+
+        .empty-message {
+            color: var(--muted-foreground);
+            text-align: center;
+            padding: 32px 16px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="img/shagaaza-logo.png" alt="Shagaaza Logo">
+                <span>Shagaaza</span>
+            </a>
+            <nav id="nav">
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#about">About me</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#contact">Contact me</a>
+            </nav>
+            <a href="https://wa.me/252617643972?text=Hi%2C%20I%20would%20like%20to%20hire%20you" target="_blank" class="btn-hire btn-hire-desktop">Hire Me</a>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home" style="background-image: url('img/hero-background.png'); background-size: cover; background-position: center; background-attachment: fixed;">
+
+<div class="container hero"
+     style="grid-column: 1/-1; background: transparent; border-radius: 20px;">
+
+
+                <div class="hero-content">
+                    <h1>Hi I'm<br>Abdishakuur hassan</h1>
+                    <p class="subtitle">UI/UX designer</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">Experiences</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">20+</div>
+                            <div class="stat-label">Projects Arno</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">80+</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <a href="https://wa.me/252617643972?text=Hi%2C%20I%20would%20like%20to%20hire%20you" target="_blank" class="btn btn-primary">Hire Me</a>
+                        <a href="/cv.pdf" download class="btn btn-secondary">📥 Download CV</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+              <!--      <img src="img/profile.jpg" alt="Profile Photo" style="max-width: 400px;"> -->
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services">
+            <div class="container">
+                <h2>Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="9" height="9"/>
+                                <rect x="12" y="3" width="9" height="9"/>
+                                <rect x="3" y="12" width="9" height="9"/>
+                            </svg>
+                        </div>
+                        <h3>UX Design</h3>
+                        <p>Creating intuitive user experiences through research, wireframing, and user journey mapping for seamless interactions.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="8"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <h3>UI Design</h3>
+                        <p>Crafting beautiful visual interfaces with attention to typography, color theory, and modern design principles.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="5" y="2" width="14" height="20" rx="2"/>
+                                <line x1="9" y1="4" x2="15" y2="4"/>
+                                <line x1="9" y1="20" x2="15" y2="20"/>
+                            </svg>
+                        </div>
+                        <h3>Mobile Poster Design</h3>
+                        <p>Eye-catching mobile posters and social media graphics optimized for all screen sizes and platforms.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4 4l8 8m0 0l8 8M4 12l8-8m0 0l8 8" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Brand Identity</h3>
+                        <p>Developing cohesive brand identities including logos, style guides, and visual brand systems.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M8 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Graphic Design</h3>
+                        <p>Professional graphic design for marketing materials, advertisements, and promotional content.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                <line x1="2" y1="20" x2="22" y2="20"/>
+                            </svg>
+                        </div>
+                        <h3>Web Design</h3>
+                        <p>Modern, responsive website designs that engage users and drive conversions across all devices.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about">
+            <div class="container">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <div class="about-images">
+                        <div class="about-image"><img src="img/Artboard-2-8.png" alt="Gallery 1"></div>
+                        <div class="about-image"><img src="img/gallery-2.jpg" alt="Gallery 2"></div>
+                        <div class="about-image"><img src="img/gallery-3.jpg" alt="Gallery 3"></div>
+                        <div class="about-image"><img src="img/gallery-4.jpg" alt="Gallery 4"></div>
+                    </div>
+                    <div class="about-text">
+                        <p>A software engineer. We created the entirity of digital media, focused on providing the best digital experience to our clients.</p>
+                        <p>Lorem ipsum dolor sit amet consectetur. Imperdiet sed aliquam fringilla pretium pellentesque. Sit dignissim bibendum sed sem amet. Volutpat pellentesque turpis viverra posuere semper neque semper et. Consectetur ornare amet risus et sit.</p>
+                        <p>Elementum accumsan senectus velit pellentesque ac eros pellentesque ipsum sodales tortor. Consectetur id risus dignissim risus aenean sem id tempor mauris ut.</p>
+                        <a href="/cv.pdf" download class="btn btn-primary" style="margin-top: 24px;">📥 Download CV</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 style="text-align: center; margin-bottom: 50px; font-size: 36px;">Skills</h2>
+            <div class="skills-container">
+                <div class="skill-item" style="--skill-value: 100%;">
+                    <div class="skill-circle">
+                        <img src="img/figma.png" alt="Figma" class="skill-img-logo">
+                        <span class="skill-percent">100%</span>
+                    </div>
+                    <p>Figma</p>
+                </div>
+                <div class="skill-item" style="--skill-value: 90%;">
+                    <div class="skill-circle">
+                        <img src="img/AdobeXD.png" alt="XD" class="skill-img-logo">
+                        <span class="skill-percent">90%</span>
+                    </div>
+                    <p>Adobe XD</p>
+                </div>
+                <div class="skill-item" style="--skill-value: 100%;">
+                    <div class="skill-circle">
+                        <img src="img/ps.png" alt="Photoshop" class="skill-img-logo">
+                        <span class="skill-percent">100%</span>
+                    </div>
+                    <p>Photoshop</p>
+                </div>
+                <div class="skill-item" style="--skill-value: 100%;">
+                    <div class="skill-circle">
+                        <img src="img/ai.png" alt="Illustrator" class="skill-img-logo">
+                        <span class="skill-percent">100%</span>
+                    </div>
+                    <p>Illustrator</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Portfolio Section -->
+        <section id="portfolio">
+            <div class="container">
+                <h2>Portfolio</h2>
+                <div class="portfolio-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="website">Website Design</button>
+                    <button class="filter-btn" data-filter="mobile">App Mobile Design</button>
+                    <button class="filter-btn" data-filter="desktop">Branding</button>
+                    <button class="filter-btn" data-filter="Logo Design">Logo Design</button>
+                </div>
+                <div class="portfolio-grid" id="portfolioGrid">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container">
+                <h2>Contact me</h2>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Service</label>
+                        <select required>
+                            <option value="">Select a service</option>
+                            <option value="ux">UX Design</option>
+                            <option value="ui">UI Design</option>
+                            <option value="mobile">Mobile Poster Design</option>
+                            <option value="brand">Brand Identity</option>
+                            <option value="graphic">Graphic Design</option>
+                            <option value="web">Web Design</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Expense System Modal -->
+    <div class="modal" id="expenseModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeExpenseModal()">✕</button>
+            
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <img src="img/shagaaza-logo.png" alt="Shagaaza">
+                    <h2>Shagaaza</h2>
+                </div>
+                <p>Expense System - Track your expenses and stay on budget</p>
+            </div>
+
+            <div class="expense-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-label">Total Budget</div>
+                        <div class="stat-card-value" id="totalBudget">$0.00</div>
+                    </div>
+                    <div class="stat-card" id="remainingCard">
+                        <div class="stat-card-label">Remaining</div>
+                        <div class="stat-card-value" id="remaining">$0.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expense-section">
+                <h3>Set Your Budget</h3>
+                <input type="number" id="budgetInput" placeholder="Enter monthly budget" class="expense-input">
+                <button onclick="setBudget()" class="btn-full btn-set-budget">💰 Set Budget</button>
+            </div>
+
+            <div class="expense-section">
+                <h3>Add Expense</h3>
+                <input type="text" id="expenseName" placeholder="Expense name (e.g., Groceries)" class="expense-input">
+                <input type="number" id="expenseAmount" placeholder="Expense amount" class="expense-input">
+                <button onclick="addExpense()" class="btn-full btn-add-expense">➕ Add Expense</button>
+            </div>
+
+            <div class="expense-section">
+                <h3>Recent Expenses</h3>
+                <div class="expense-list" id="expenseList">
+                    <div class="empty-message">No expenses yet. Add your first expense above!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="img/shagaaza-logo.png" alt="Shagaaza Logo">
+                <span>Shagaaza</span>
+            </a>
+
+            <nav class="footer-nav">
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#about">About me</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#contact">Contact me</a>
+            </nav>
+
+            <div class="social-links">
+                <a href="#" class="social-icon" title="Twitter">𝕏</a>
+                <a href="#" class="social-icon" title="Instagram">📷</a>
+                <a href="#" class="social-icon" title="LinkedIn">💼</a>
+                <a href="#" class="social-icon" title="GitHub">⚙️</a>
+            </div>
+
+            <div class="footer-contact">
+                <a href="mailto:abdishakuurhassanjama@gmail.com">📧 abdishakuurhassanjama@gmail.com</a>
+                <a href="tel:+93729107065">📞 +252 61 7643972</a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Designed by @SHAGAAZA All Rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Portfolio Data
+        const portfolioProjects = [
+            { title: 'Agrigulture Branding', category: 'desktop', image: 'lixtoban-8.png', isInteractive: true },
+            { title: 'Logo Design', category: 'mobile', image: 'home pageee.png' },
+            { title: 'Name Project', category: 'website', image: 'portfolio-3.jpg' },
+            { title: 'Branding', category: 'desktop', image: 'Artboard 1-8.png' },
+            { title: 'Name Project', category: 'branding', image: 'Artboard4-8.png' },
+            { title: 'Name Project', category: 'mobile', image: 'Two (1).jpg' },
+            { title: 'Name Project', category: 'mobile', image: 'iOS Mobile 1 (1).jpg' },
+            { title: 'Name Project', category: 'mobile', image: 'Home page (1).png' },
+            { title: 'Name Project', category: 'mobile', image: 'Splash Screen (2).jpg' },
+            { title: 'Name Project', category: 'website', image: 'Screenshot 2026-02-03 151118.png' },
+            { title: 'Name Project', category: 'desktop', image: 'Artboard 155-8.png' },
+            { title: 'Name Project', category: 'branding', image: 'eqabo-8.png' },
+            { title: 'Name Project', category: 'branding', image: 'Artboard-2-8.png' },
+            { title: 'Name Project', category: 'branding', image: 'sadex-8.png' },
+            { title: 'Name Project', category: 'branding', image: 'Artboard 14-8.png' },
+            { title: 'Name Project', category: 'mobile', image: 'hmn.png' },
+            { title: 'Name Project', category: 'website', image: 'Screenshot 2026-02-03 151439.png' },
+            { title: 'Name Project', category: 'desktop', image: 'shantaban-8.png' },
+            { title: 'Name Project', category: 'desktop', image: 'Artboard 15-8.png' },
+            { title: 'Name Project', category: 'desktop', image: '472470026_476472912149365_3613852240761454143_n.jpg' },
+        ];
+
+        // Expense System State
+        let budget = 0;
+        let expenses = [];
+
+        // Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Close menu when link clicked
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+
+        // Portfolio Grid
+        function renderPortfolio(filter = 'all') {
+            const grid = document.getElementById('portfolioGrid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? portfolioProjects : portfolioProjects.filter(p => p.category === filter);
+
+            filtered.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'portfolio-card';
+                card.innerHTML = `
+                    <img src="img/${project.image}" alt="${project.title}">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-title">${project.title}</div>
+                        <div class="portfolio-category">${project.category.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase()}</div>
+                        ${project.isInteractive ? '<div style="color: #ff6b00; font-size: 12px; margin-top: 4px;">Click to open demo</div>' : ''}
+                    </div>
+                `;
+
+                if (project.isInteractive) {
+                    card.addEventListener('click', openExpenseModal);
+                }
+
+                grid.appendChild(card);
+            });
+        }
+
+        // Portfolio Filters
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderPortfolio(this.dataset.filter);
+            });
+        });
+
+        // Expense System Functions
+        function setBudget() {
+            const input = document.getElementById('budgetInput');
+            const amount = parseFloat(input.value);
+            if (amount >= 0) {
+                budget = amount;
+                input.value = '';
+                updateExpenseDisplay();
+            }
+        }
+
+        function addExpense() {
+            const nameInput = document.getElementById('expenseName');
+            const amountInput = document.getElementById('expenseAmount');
+            const name = nameInput.value.trim();
+            const amount = parseFloat(amountInput.value);
+
+            if (name && amount > 0) {
+                expenses.push({
+                    id: Date.now(),
+                    name: name,
+                    amount: amount,
+                    date: new Date()
+                });
+                nameInput.value = '';
+                amountInput.value = '';
+                updateExpenseDisplay();
+            }
+        }
+
+        function deleteExpense(id) {
+            expenses = expenses.filter(e => e.id !== id);
+            updateExpenseDisplay();
+        }
+
+        function updateExpenseDisplay() {
+            const totalBudget = document.getElementById('totalBudget');
+            const remaining = document.getElementById('remaining');
+            const remainingCard = document.getElementById('remainingCard');
+            const expenseList = document.getElementById('expenseList');
+
+            const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+            const remainingAmount = budget - totalExpenses;
+
+            totalBudget.textContent = '$' + budget.toFixed(2);
+            remaining.textContent = '$' + remainingAmount.toFixed(2);
+
+            if (remainingAmount < 0) {
+                remainingCard.classList.add('negative');
+            } else {
+                remainingCard.classList.remove('negative');
+            }
+
+            if (expenses.length === 0) {
+                expenseList.innerHTML = '<div class="empty-message">No expenses yet. Add your first expense above!</div>';
+            } else {
+                expenseList.innerHTML = expenses.map(expense => `
+                    <div class="expense-item">
+                        <div>
+                            <div class="expense-name">${expense.name}</div>
+                            <div class="expense-date">${expense.date.toLocaleDateString()}</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <span class="expense-amount">-$${expense.amount.toFixed(2)}</span>
+                            <button class="btn-delete" onclick="deleteExpense(${expense.id})">🗑️</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function openExpenseModal() {
+            document.getElementById('expenseModal').classList.add('active');
+        }
+
+        function closeExpenseModal() {
+            document.getElementById('expenseModal').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('expenseModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeExpenseModal();
+            }
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
+        });
+
+        // Initialize
+        renderPortfolio();
+        updateExpenseDisplay();
+    </script>
+</body>
+</html>
